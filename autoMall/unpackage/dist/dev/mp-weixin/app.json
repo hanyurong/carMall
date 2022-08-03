@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/tabBar/home/home",
+    "pages/tabBar/mall/mall",
+    "pages/tabBar/service/service",
+    "pages/tabBar/mine/mine",
+    "pages/home/giftPack/giftPack",
+    "pages/home/tryCargo/tryCargo",
+    "pages/home/approve/approve",
+    "pages/home/shareTask/shareTask",
+    "pages/home/testReport/testReport",
+    "pages/home/liveBar/liveBar",
+    "pages/home/contrac/contrac",
+    "pages/home/shareTask/shareDetail",
+    "pages/store/brandDetail/brandDetail",
+    "pages/store/goodsDetail/goodsDetail",
+    "pages/store/groupActivity/groupActivity",
+    "pages/store/shoppingCart/shoppingCart"
+  ],
+  "subPackages": [],
+  "window": {
+    "pageOrientation": "portrait",
+    "navigationBarTitleText": "Hello uniapp",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#f7f7f7",
+    "backgroundColor": "#F8F8F8",
+    "backgroundColorTop": "#F4F5F6",
+    "backgroundColorBottom": "#F4F5F6"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "演示定位能力"
+    }
+  },
+  "uniStatistics": {
+    "enable": true
+  },
+  "usingComponents": {
+    "tab-bar": "/components/tabBar"
+  }
+}

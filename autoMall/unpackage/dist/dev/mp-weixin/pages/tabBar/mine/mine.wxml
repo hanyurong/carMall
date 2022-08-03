@@ -1,0 +1,1 @@
+<view><tab-bar vue-id="220fb322-1" current="{{currentTabIndex}}" backgroundColor="#fbfbfb" color="#999" tintColor="#42b983" data-event-opts="{{[['^click',[['tabClick']]]]}}" bind:click="__e" bind:__l="__l"></tab-bar></view>

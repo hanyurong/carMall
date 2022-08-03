@@ -1,0 +1,403 @@
+<template>
+	<view class="home">
+		<!-- 轮播图 -->
+		<view class="myContainer">
+			<view class="uni-margin-wrap">
+				<swiper class="swiper image-container" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+					<swiper-item v-for="(item, index) in imgList" :key="index">
+						<view class="item" :class="currentIndex == index ? 'item-img' : 'item-img-side'">
+							<image :src="item.bannerUrl" mode=""></image>
+						</view>
+					</swiper-item>
+				</swiper>
+			</view>	
+		</view>
+		<view class="midTab">
+			<view class="flex-wrp" style="flex-direction:row;">
+			  <view class="tabMain"  @click="navTo('/pages/home/giftPack/giftPack','0')">
+			  	<image src="../../../static/image/home/reg.png" mode=""></image>
+			  </view>
+			  <view class="tabMain" @click="navTo('/pages/home/tryCargo/tryCargo','sh')">
+			  	<image src="../../../static/image/home/goods.png" mode=""></image>
+			  </view>
+			  <view class="tabMain" @click="navTo('/pages/home/liveBar/liveBar','0')">
+			  	<image src="../../../static/image/home/zb.png" mode=""></image>
+			  </view>
+			  <view class="tabMain" @click="navTo('/pages/home/contrac/contrac','qy')">
+			  	<image src="../../../static/image/home/qy.png" mode=""></image>
+			  </view>
+			  <view class="tabMain" @click="navTo('/pages/home/shareTask/shareTask','0')">
+			  	<image src="../../../static/image/home/share.png" mode=""></image>
+			  </view>
+			</view>
+		</view>		
+		<!-- 商品类型tab -->
+		<view class="goodsTab">
+			<view class="flex-wrap" style="flex-direction: row;">
+				<view class="tabMain" v-for="(item,i) in goodsList" :key='i' @click="changeType(i)">
+					<view  :class="goodsIndex === i?'goodsActive' : 'goodsItem'">
+						{{item.name}}
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 文章列表 -->
+		<view class="wyList">
+			<view class="uni-flex uni-row wyItem" v-for="(item,index) in wyList" :key='index'>
+					<view class="uni-flex uni-column" style="-webkit-flex: 1;flex: 1;-webkit-justify-content: space-between;justify-content: space-between;">
+						<view class="text title">
+							{{item.title}}
+						</view>
+						<view class="text textContent">{{item.text}}</view>
+					</view>
+					<view class="text uni-flex" style="float:left;width: 200rpx;height: 220rpx;-webkit-justify-content: center;justify-content: center;-webkit-align-items: center;align-items: center;">
+						<image :src="item.img"></image>
+					</view>
+					
+			</view>
+		</view>
+		<!-- tabBar -->
+		<tab-bar :current="currentTabIndex" tintColor="#42b983" @click="tabClick"></tab-bar>
+	</view>
+</template>
+
+<script>
+	import tabBar from "../../../components/tabBar.vue"
+	export default {
+		components: {
+		    tabBar
+		},
+		data() {
+			return {
+				currentTabIndex: 0,
+				currentIndex: 0,
+				imgList: [{
+					bannerUrl: require('../../../static/image/home/banner1.png')
+				},
+				{
+					bannerUrl: require('../../../static/image/home/banner1.png')
+				},
+				{
+					bannerUrl: require('../../../static/image/home/banner1.png')
+				},
+				{
+					bannerUrl: require('../../../static/image/home/banner1.png')
+				}
+				],
+				tabbarHeights: '100',
+				goodsList: [{
+					name: '发动机'
+				},{
+					name: '润滑油'
+				},{
+					name: '轮胎'
+				},{
+					name: '润滑油'
+				},{
+					name: '轮胎'
+				}],
+				goodsIndex: 0,
+				wyList: [{
+					img: require('../../../static/image/home/banner1.png'),
+					title: '产值千万的关键在于坚定心中信念！',
+					text: '为什么同样是普通人，同样是干汽配，她就能如此迅猛发展？'
+				},{
+					img: require('../../../static/image/home/banner1.png'),
+					title: '产值千万的关键在于坚定心中信念！',
+					text: '为什么同样是普通人，同样是干汽配，她就能如此迅猛发展？'
+				},{
+					img: require('../../../static/image/home/banner1.png'),
+					title: '产值千万的关键在于坚定心中信念！',
+					text: '为什么同样是普通人，同样是干汽配，她就能如此迅猛发展？'
+				},{
+					img: require('../../../static/image/home/banner1.png'),
+					title: '产值千万的关键在于坚定心中信念！',
+					text: '为什么同样是普通人，同样是干汽配，她就能如此迅猛发展？'
+				},],
+				background: ['color1', 'color2', 'color3'],
+				indicatorDots: true,
+				autoplay: true,
+				interval: 2000,
+				duration: 500
+			}
+		},
+		methods: {
+			tabClick(index){
+				this.currentTabIndex = index
+			},
+			swiperChange(e) {
+				this.currentIndex = e.detail.current
+			},
+			navTo(url,e) {
+				if(e === 'sh') {
+					uni.navigateTo({
+						url: '/pages/home/tryCargo/tryCargo?shihuo=' + e
+					})
+				}else if(e === 'qy'){
+					uni.navigateTo({
+						url: '/pages/home/tryCargo/tryCargo?shihuo=' + e
+					})
+				}else {
+					uni.navigateTo({
+						url
+					})
+				}
+				
+			},
+			changeType(e) {
+				console.log(e)
+				this.goodsIndex = e
+			}
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	.home {
+		// padding-bottom: 40rpx !important;
+		padding-bottom: 120rpx;
+		.myContainer{
+			height: 420rpx;
+			display: flex;
+			justify-content: center;
+			border-radius:7rpx;
+			position: relative;
+			overflow: hidden;
+			margin-top: 16rpx;
+			// 轮播图
+			.image-container {
+				width: 750rpx;
+				height: 438rpx;
+				.item {
+					// background: linear-gradient(30deg, #FFCC8F, #FFA657);
+					position: relative;
+					overflow: hidden;
+					image{
+						display: block;
+						width: 100%;
+						height: 100%;
+					}
+				}
+				.item-img {
+					width: 750rpx;
+					height: 438rpx;
+					// border-radius: 24rpx;
+					// animation: to-big .2s;
+					// box-shadow: 5rpx 10rpx 10rpx rgba($color: #FFAB5E, $alpha: .4);
+					margin: 0 auto;
+				}
+				.swiper-item {
+					width: 650rpx;
+					height: 380rpx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+				.item-img-side {
+					width: 650rpx;
+					height: 350rpx;
+					border-radius: 24rpx;
+					// animation: to-mini .2s;
+					margin: 15rpx auto;
+				}
+				// @keyframes to-mini
+				// {
+				// 	from {
+				// 		height: 380rpx;
+				// 	}
+				// 	to {
+				// 		height: 350rpx;
+				// 	}
+				// }
+				// @keyframes to-big
+				// {
+				// 	from {
+				// 		height: 350rpx;
+				// 	}
+				// 	to {
+				// 		height: 380rpx;
+				// 	}
+				// }
+			}
+		}
+		.midTab{
+			width: 690rpx;
+			margin: 30rpx auto 20rpx;
+			text-align: center;
+			overflow: hidden;
+			background: #FFFFFF;
+			border-radius: 16rpx;
+			.tabMain{
+				width: 20%;
+				image{
+					display: inline-block;
+					width: 125rpx;
+					height: 125rpx;
+					margin: 25rpx auto;
+				}
+			}
+		}
+		.goodsTab {
+			width: 690rpx;
+			height: 84rpx;
+			background: #2B2F36;
+			border-radius: 16rpx 16rpx 0 0;
+			border-radius: 16rpx 16rpx 0rpx 0rpx;
+			margin: 0 auto;
+			.tabMain {
+				width: 20%;
+				float:left;
+				text-align: center;
+				line-height: 84rpx;
+				.goodsActive {
+					font-family: PingFangSC-Semibold;
+					font-weight: 600;
+					font-size: 32rpx;
+					color: #FFFFFF;
+				}
+				.goodsItem {
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					font-size: 26rpx;
+					color: #fff;
+				}
+			}
+			
+		}
+		.wyList {
+			width: 690rpx;
+			background: #FFFFFF;
+			margin: 0rpx auto;
+			.wyItem {
+				border-bottom: 1rpx solid #EAEAEA;
+				// padding:  0 10rpx;
+				width: 650rpx;
+				margin: 0 auto;
+				// width: 650px;
+				// height: 1px;
+				// border: 1px solid #DCDCDC;
+				.title {
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					font-size: 28rpx;
+					color: #333333;
+					letter-spacing: 0;
+					text-align: justify;
+					margin-top: 40rpx;
+					// height: 120rpx;
+					text-align: left;
+					padding-left: 20rpx;
+					padding-top: 10rpx;
+				}
+				.textContent {
+					// width:  450rpx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					font-size: 24rpx;
+					color: #888888;
+					letter-spacing: 0;
+					text-align: justify;
+					word-wrap: break-word;
+					white-space: normal;
+					word-break: break-all;
+					-webkit-flex: 1;
+					flex: 1;
+					text-align: left;
+					padding-left: 20rpx;
+					padding-top: 10rpx;
+				}
+				image {
+					width: 162rpx;
+					height: 150rpx;
+					background: #D8D8D8;
+					margin: 40rpx 0 30rpx;
+				}	
+			}
+			
+		}
+		.shopList{
+			width: 670rpx;
+			margin: 0 auto;
+			margin-top: 40rpx;
+			overflow: hidden;
+			.lstContent{
+				width: 324rpx;
+				height: 520rpx;
+				float: left;
+				margin-right: 22rpx;
+				background: #FFFFFF;
+				margin-bottom: 22rpx;
+				box-shadow: 0rpx 6rpx 18rpx 4rpx rgba(218, 222, 231, 0.4);
+				border-radius: 24rpx;
+				position: relative;
+				overflow: hidden;
+				&:nth-child(2n){
+					margin-right: 0;
+				}
+				.lstZT{
+					display: block;
+					width: 100%;
+					height: 370rpx;
+				}
+				.shopMsg{
+					width: 100%;
+					height: 176rpx;
+					border-radius: 24rpx;
+					background: white;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					.spTit{
+						width: 284rpx;
+						margin: 0 auto;
+						font-size: 34rpx;
+						color: #333333;
+						line-height: 48rpx;
+						margin-top: 20rpx;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						word-wrap: normal;
+					}
+					.spSubtit{
+						width: 284rpx;
+						margin: 0 auto;
+						font-size: 24rpx;
+						color: #333333;
+						font-weight: 400;
+						line-height: 34rpx;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						word-wrap: normal;
+					}
+					.spPrice{
+						width: 284rpx;
+						margin: 0 auto;
+						margin-top: 6rpx;
+						overflow: hidden;
+						.spPrcBox{
+							width: 220rpx;
+							float: left;
+							font-size: 20rpx;
+							color: #333333;
+							line-height: 36rpx;
+							text{
+								font-size: 34rpx;
+							}
+						}
+						image{
+							display: block;
+							float: right;
+							width: 36rpx;
+							height: 44rpx;
+						}
+					}
+				}
+			}
+			
+		}
+		
+	}
+
+</style>

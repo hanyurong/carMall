@@ -1,0 +1,143 @@
+<template>
+		<view class="uni-tabbar">
+			<view class="uni-tabbar__item" v-for="(item,index) in tabbar" :key="index" @tap="changeTab(item)">
+				<view class="uni-tabbar__bd">
+					<view class="uni-tabbar__icon">
+						<image v-if="index == current" class="icon-img" :src="item.selectedIconPath" mode="aspectFit"></image>
+						<image v-else class="icon-img" mode="aspectFit" :src="item.iconPath"></image>
+					</view>
+				</view>
+				<view class="uni-tabbar__label" :class="{'active': index == current}">
+					{{item.text}}
+				</view>
+			</view>
+		</view>
+</template>
+
+
+<script>
+	export default {
+		props: {
+		//从父级继承过来的属性 需要在父级中使用:pagePath='pagePath',
+			current: Number
+		},
+		data() {
+			return {
+				// page: '',
+				showPage: false,
+				containerHeight: 400,
+				//公共的tabbar
+				tabbar: [{
+						"pagePath": "pages/tabBar/home/home",
+						"iconPath": "/static/image/home/home1.png",
+						"selectedIconPath": "/static/image/home/home.png",
+						"text": "首页"
+					},
+					{
+						"pagePath": "pages/tabBar/mall/mall",
+						"iconPath": "/static/image/home/mall.png",
+						"selectedIconPath": "/static/image/home/mall1.png",
+						"text": "商城"
+					},{
+						"pagePath": "pages/tabBar/service/service",
+						"iconPath": "/static/image/home/service.png",
+						"selectedIconPath": "/static/image/home/serviceActive.png",
+						"text": "客服"
+					},{
+						"pagePath": "pages/tabBar/mine/mine",
+						"iconPath": "/static/image/home/mine.png",
+						"selectedIconPath": "/static/image/home/mineActive.png",
+						"text": "我的"
+					}
+				]
+			};
+		},
+		watch: {
+			pagePath: {
+				handler(pagePath) {
+					console.log('pagePath监听===val', pagePath)
+				},
+				immediate: true
+			}
+		},
+		mounted() {
+			// 根据自己的业务需求判断条件为true，替换即可,根据权限设置的tabbar	
+			//第三个参数为插入项,第一个参数为第一项位置，第二个参数为要删除几个。
+			// if (true) {
+			// 	this.tabbar.splice(3, 0, {
+			// 			"pagePath": "pages/wareHouse/wareHouse",
+			// 			// "iconPath": "/static/cart.png",
+			// 			"selectedIconPath": "/static/cartSelected.png",
+			// 			"text": "出入库"
+			// 		}
+			// 	)
+			// }
+		},
+		methods: {
+			changeTab(item) {
+				this.page = item.pagePath;
+				// 使用reLaunch关闭所有的页面，打开新的栏目页面
+				// console.log(item.pagePath)
+				// console.log(this.page)
+				uni.reLaunch({
+					url: '/' + this.page,
+				});
+			},
+		}
+	}
+</script>
+<style lang="scss" scoped>
+	.uni-tabbar {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		z-index: 999;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		height: 100rpx;
+		padding: 16rpx 0;
+		box-sizing: border-box;
+		border-top: solid 1rpx #ccc;
+		background-color: #fff;
+		box-shadow: 0px 0px 17rpx 1rpx rgba(206, 206, 206, 0.32);
+
+		.uni-tabbar__item {
+			display: block;
+			line-height: 24rpx;
+			font-size: 20rpx;
+			text-align: center;
+			flex: 1;
+		}
+
+		.uni-tabbar__icon {
+			height: 24px;
+			line-height: 24px;
+			text-align: center;
+			display: inline-block;
+		}
+
+		.icon {
+			display: inline-block;
+		}
+
+		.uni-tabbar__label {
+			font-family: PingFangSC-Regular;
+			font-weight: 400;
+			font-size: 22rpx;
+			color: #C9CCDB;
+
+			&.active {
+			  color: #202425;
+			}
+		}
+
+		.icon-img {
+			height: 24px;
+			width: 24px;
+		}
+	}
+</style>
+
+
